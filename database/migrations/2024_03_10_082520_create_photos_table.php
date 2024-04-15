@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->string("img1")->nullable;
-            $table->string("img2")->nullable;
-            $table->string("img3")->nullable;
+            $table->string("img1")->default("def.png");
+            $table->string("img2")->default("def.png");
+            $table->string("img3")->default("def.png");
             $table->timestamps();
         });
     }

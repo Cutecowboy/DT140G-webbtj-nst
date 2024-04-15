@@ -22,7 +22,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required|string",
+            "brand" => "required|string|between:2,64",
+            "description" => "required|string",
+            "price" => "required|int|gte:1"
+        ]);
+
+        return Product::create($request->all());
     }
 
     /**
@@ -30,7 +37,16 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //check if product exist
+
+        $product = Product::find($id);
+
+        //if null
+        if ($product === null) {
+            return response()->json([
+                "message" => "Product was not found!"
+            ], 404);
+        } else return $product;
     }
 
     /**
@@ -38,7 +54,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //check if product exists
+
+        $product = Product::find($id);
+
+        // if null
+        if ($product === null) {
+            return response()->json([
+                "message" => "Product was not found!"
+            ], 404);
+        }
+
+        // validate the new input
+        $request->validate([
+            "name" => "required|string",
+            "brand" => "required|string|between:2,64",
+            "description" => "required|string",
+            "price" => "required|int|gte:1"
+        ]);
+
+        $product->update($request->all());
+
+        return $product;
     }
 
     /**
@@ -46,6 +83,32 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //check if product exists
+
+        $product = Product::find($id);
+
+        // if null
+        if ($product === null) {
+            return response()->json([
+                "message" => "Product was not found!"
+            ], 404);
+        } else {
+            $product->delete();
+
+            return response()->json([
+                "message" => "Product was deleted!"
+            ]);
+        }
+    }
+
+    public function addCategory(Request $request)
+    {
+        //validate
+
+        $request->validate([
+            "categoryname" => "required|string|between:2,64"
+        ]);
+
+        return Category::create($request->all());
     }
 }
