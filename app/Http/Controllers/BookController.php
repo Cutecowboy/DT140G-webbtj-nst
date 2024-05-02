@@ -58,7 +58,7 @@ class BookController extends Controller
 
         $request->validate([
             "status" => "required|bool",
-            "user_id" => "required|int"
+            "user_id" => "int"
         ]);
 
         // update values on set booking id

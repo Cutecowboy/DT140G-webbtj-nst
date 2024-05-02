@@ -92,4 +92,30 @@ class PhotoController extends Controller
             ]);
         }
     }
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            // get filename via form 
+            $filename = $request->input('filename');
+            // save it
+            $image->storeAs('images', $filename);
+            return response()->json(['message' => 'Image uploaded successfully', "name" => $filename]);
+        } else {
+            return response()->json(['error' => 'No file uploaded'], 400);
+        }
+    }
+
+    public function showPhoto($filename)
+    {
+        // check the internal storage of laravel and see if filename exist!
+        $path = storage_path('app/images/' . $filename);
+        // if not, return 404
+        if (!file_exists($path)) {
+            abort(404);
+        }
+        // else return the file path
+        return response()->file($path);
+    }
+
 }

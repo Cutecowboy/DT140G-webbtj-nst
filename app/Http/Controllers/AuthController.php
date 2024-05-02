@@ -85,7 +85,8 @@ class AuthController extends Controller
 
             return response()->json([
                 'message' => 'User successfully logged in!',
-                'token' => $user->createToken('APITOKEN')->plainTextToken 
+                'token' => $user->createToken('APITOKEN')->plainTextToken,
+                'userId' => $user->id
             ], 200);
     }
 
@@ -99,6 +100,19 @@ class AuthController extends Controller
         ];
 
         return response($response, 200);
+    }
+
+    // get the roleid
+    public function getRole(string $id){
+        $role = User::find($id);
+
+        // check if any match
+        if($role === null){
+            return response()->json([
+                'message' => "ID was not found!"
+            ], 404);
+        } else return $role;
+
     }
 
 }

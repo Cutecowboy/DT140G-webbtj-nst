@@ -8,6 +8,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ Route::post('add-category', [ProductController::class, 'addCategory']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/roleid/{id}', [AuthController::class, 'getRole']);
+Route::post('/upload', [PhotoController::class, 'upload']);
+Route::get('/showPhoto/{filename}', [PhotoController::class, 'showPhoto']);
+Route::resource('/users', UserController::class);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
