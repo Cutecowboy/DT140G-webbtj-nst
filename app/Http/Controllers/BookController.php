@@ -89,4 +89,16 @@ class BookController extends Controller
             ]);
         }
     }
+    public function searchBooking($id)
+    {
+        $book = Booked::where('user_id', $id )->get();
+        
+        if(count($book) === 0){
+            return response()->json([
+                "message" => "No bookings was found!"
+            ],404);
+        } else {
+            return $book;
+        }
+    }
 }

@@ -111,4 +111,9 @@ class ProductController extends Controller
 
         return Category::create($request->all());
     }
+
+    public function searchProduct($name)
+    {
+        return Product::where('name', 'like', '%' . $name . '%')->get();
+    }
 }

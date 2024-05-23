@@ -28,6 +28,8 @@ Route::resource('photo', PhotoController::class);
 Route::resource('role', RoleController::class);
 
 Route::post('add-category', [ProductController::class, 'addCategory']);
+Route::get('/search/product/{name}', [ProductController::class, 'searchProduct']);
+Route::get('/search/book/{id}', [BookController::class, 'searchBooking']);
 
 // routes for register, login and logout, register and login are publically accessable
 Route::post('/register', [AuthController::class, 'register']);
