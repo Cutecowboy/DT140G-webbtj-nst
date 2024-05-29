@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@lampshopen.com',
             'password' => Hash::make('password'),
-            'roleid' => 1
+            'role_id' => 1
         ]);
     }
 }
